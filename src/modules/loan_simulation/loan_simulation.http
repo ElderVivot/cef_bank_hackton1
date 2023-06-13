@@ -1,0 +1,8 @@
+# simulation
+POST http://localhost:3301/v1/loan_simulation HTTP/1.1
+content-type: application/json
+
+{
+    "valorDesejado": 900.00,
+    "prazo": 24
+}
