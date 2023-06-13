@@ -7,6 +7,8 @@ import { Injectable } from '@nestjs/common';
 import { ValidationSimulationDTO } from './dto/validate-simulation.dto';
 import { LoanSimulation } from './loan_simulation.entity';
 import { LoanSimulationRepository } from './loan_simulation.repository';
+import { EventHubProducerClient } from '@azure/event-hubs';
+import { DefaultAzureCredential } from '@azure/identity';
 
 @Injectable()
 export class LoanSimulationService {
@@ -52,6 +54,29 @@ export class LoanSimulationService {
     return installments;
   }
 
+  // private async sendToEventHub(loanSimulation: LoanSimulation) {
+  //   const eventHubsResourceName =
+  //     'sb://eventhack.servicebus.windows.net/;SharedAccessKeyName=hack;SharedAccessKey=HeHeVaVqyVkntO2FnjQcs2Ilh/4MUDo4y+AEhKp8z+g=;EntityPath=simulacoes';
+  //   const eventHubName = 'hack';
+
+  //   const producer = new EventHubProducerClient(
+  //     eventHubsResourceName,
+  //     eventHubName,
+  //   );
+
+  //   // Prepare a batch of three events.
+  //   const batch = await producer.createBatch();
+  //   batch.tryAdd({ body: loanSimulation });
+
+  //   // Send the batch to the event hub.
+  //   await producer.sendBatch(batch);
+
+  //   // Close the producer client.
+  //   await producer.close();
+
+  //   console.log('A batch of this event have been sent to the event hub');
+  // }
+
   async simulation(
     dto: ValidationSimulationDTO,
   ): Promise<LoanSimulation | { message: string } | ErrorRequestResponse> {
@@ -80,7 +105,7 @@ export class LoanSimulationService {
 
       const product = products[0];
 
-      return {
+      const loanSimulation: LoanSimulation = {
         codigoProduto: product.CO_PRODUTO,
         descricaoProduto: product.NO_PRODUTO,
         taxaJuros: product.PC_TAXA_JUROS,
@@ -95,7 +120,12 @@ export class LoanSimulationService {
           },
         ],
       };
+
+      // await this.sendToEventHub(loanSimulation);
+
+      return loanSimulation;
     } catch (error) {
+      console.log(error);
       return MakeErrorRequestResponseV2(
         'public.loan_simulation',
         'simulation',

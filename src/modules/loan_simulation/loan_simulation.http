@@ -4,5 +4,5 @@ content-type: application/json
 
 {
     "valorDesejado": 900.00,
-    "prazo": 24
+    "prazo": 23
 }

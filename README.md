@@ -22,17 +22,13 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
+## Instalação
 
 ```bash
 $ npm install
 ```
 
-## Running the app
+## Executando o app
 
 ```bash
 # development
@@ -45,29 +41,17 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Test
+## Testando a rota
 
-```bash
-# unit tests
-$ npm run test
+Pra melhor visualização, abra numa ferramenta pra testar rotas rest client, como Insomnia, Postmand, etc e teste a rota conforme exemplo abaixo:
 
-# e2e tests
-$ npm run test:e2e
+```
+POST http://localhost:3301/v1/loan_simulation HTTP/1.1
+content-type: application/json
 
-# test coverage
-$ npm run test:cov
+{
+    "valorDesejado": 900.00,
+    "prazo": 24
+}
 ```
 
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
